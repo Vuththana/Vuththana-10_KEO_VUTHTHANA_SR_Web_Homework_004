@@ -1,5 +1,5 @@
 // ADD TASK
-let addTaskForm = document.getElementById("add-form");
+let addTaskForm = document.getElementById("add-task-form");
 let showAddTaskForm = document.getElementById("show-add-form");
 let closeAddTaskForm = document.getElementById("close-add-form");
 let addTaskFormSubmit = document.getElementById("add-form");
@@ -123,7 +123,21 @@ showAddTaskForm.addEventListener("click", () => {
 });
 
 closeAddTaskForm.addEventListener("click", () => {
+  const statusRadios = document.getElementsByName("status");
+  const priorityRadios = document.getElementsByName("priority");
   addTaskFormSubmit.className = "hidden";
+  task.value = "";
+  for(let radio of statusRadios) {
+    if(radio.checked) {
+      radio.checked = false;
+    }
+  }
+
+  for(let radio of priorityRadios) {
+    if(radio.checked) {
+      radio.checked = false;
+    }
+  }
 });
 
 addTaskForm.addEventListener("submit", (e) => {
@@ -137,6 +151,7 @@ addTaskForm.addEventListener("submit", (e) => {
     return;
   }
   addTaskToList(task.value, getSelectedPriority(), getSelectedStatus());
+  addTaskForm.submit();
   addTaskFormSubmit.className = "hidden";
 });
 
