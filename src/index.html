@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Task List</title>
+    <link rel="stylesheet" href="output.css" />
+
+    <!-- FONT AWESOME -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css"
+    />
+  </head>
+  <body class="font-mono bg-blue-200">
+    <div class="max-w-7xl h-full p-[30px] relative z-0 mx-auto">
+      <div class="flex items-center justify-between">
+        <p class="text-[40px] font-[700]">Task List</p>
+        <div>
+          <button
+            class="bg-purple-900 text-white font-[700] px-[30px] py-[10px] rounded-[10px]"
+            id="show-add-form"
+          >
+            Add Task
+          </button>
+        </div>
+      </div>
+      <table class="w-full mt-10 border-separate border-spacing-y-4">
+        <thead class="text-blue-500 text-[20px] font-[800]">
+          <tr class="h-[80px]">
+            <td
+              class="px-12 max-w-[70px] bg-white rounded-tl-[15px] rounded-bl-[15px] font-[700]"
+            >
+              Task
+            </td>
+            <td class="bg-white font-[700]">Priority</td>
+            <td class="bg-white font-[700]">Status</td>
+            <td
+              class="bg-white text-yellow-600 rounded-tr-[15px] rounded-br-[15px] font-[700]"
+            >
+              Action
+            </td>
+          </tr>
+        </thead>
+        <tbody id="tbody"></tbody>
+      </table>
+    </div>
+
+    <!-- ADD TASK FORM -->
+    <div id="add-form" class="hidden">
+      <form
+        action="#"
+        class="bg-white w-[600px] p-[30px] flex flex-col gap-[30px] rounded-[15px]"
+        id="add-task-form"
+      >
+        <div class="flex justify-between items-center">
+          <p class="text-[30px] font-[700]">Add Task</p>
+          <button type="button" id="close-add-form">
+            <i class="fas fa-times"></i>
+          </button>
+        </div>
+        <div>
+          <div>
+            <label class="font-[600] text-[20px]" for="task">Task</label>
+          </div>
+          <input
+            class="w-[70%] border-blue-500 border-2 rounded-[10px] px-[10px] py-[5px]"
+            type="text"
+            placeholder="Web Homework"
+            id="addTask"
+          />
+        </div>
+        <div>
+          <label class="font-[600] text-[20px]" for="priority">Priority</label>
+          <div class="flex gap-[20px]">
+            <label class="cursor-pointer flex" for="addHigh">
+              <input
+                class="peer peer/addHigh hidden"
+                type="radio"
+                id="addHigh"
+                name="priority"
+                value="high"
+              />
+              <span
+                class="peer-checked/addHigh:text-white peer-checked/addHigh:bg-red-500 hover:bg-red-500 hover:text-white border-red-500 rounded-[15px] text-red-500 font-[700] border-2 w-[90px] h-[35px] flex items-center justify-center"
+                >High</span
+              >
+            </label>
+
+            <label class="cursor-pointer flex" for="addMedium">
+              <input
+                class="peer peer/addMedium hidden"
+                type="radio"
+                id="addMedium"
+                name="priority"
+                value="medium"
+              />
+              <span
+                class="peer-checked/addMedium:text-white peer-checked/addMedium:bg-yellow-500 hover:bg-yellow-500 hover:text-white border-yellow-500 rounded-[15px] text-yellow-500 font-[700] border-2 w-[90px] h-[35px] flex items-center justify-center"
+                >Medium</span
+              >
+            </label>
+
+            <label class="cursor-pointer flex" for="addLow">
+              <input
+                class="peer peer/addLow hidden"
+                type="radio"
+                id="addLow"
+                name="priority"
+                value="low"
+              />
+              <span
+                class="peer-checked/addLow:text-white peer-checked/addLow:bg-green-500 hover:bg-green-500 hover:text-white border-green-500 rounded-[15px] text-green-500 font-[700] border-2 w-[90px] h-[35px] flex items-center justify-center"
+                >Low</span
+              >
+            </label>
+          </div>
+        </div>
+
+        <div>
+          <label class="font-[600] text-[20px]" for="priority">Status</label>
+          <div class="flex gap-[20px]">
+            <label class="cursor-pointer flex" for="addTodo">
+              <input
+                class="peer peer/addTodo hidden"
+                type="radio"
+                id="addTodo"
+                name="status"
+                value="todo"
+              />
+              <span
+                class="peer-checked/addTodo:text-white peer-checked/addTodo:bg-blue-500 hover:bg-blue-500 hover:text-white border-blue-500 rounded-[15px] text-blue-500 font-[700] border-2 w-[90px] h-[35px] flex items-center justify-center"
+                >To Do</span
+              >
+            </label>
+
+            <label class="cursor-pointer flex" for="addProgress">
+              <input
+                class="peer peer/addProgress hidden"
+                type="radio"
+                id="addProgress"
+                name="status"
+                value="progress"
+              />
+              <span
+                class="peer-checked/addProgress:text-white peer-checked/addProgress:bg-blue-500 hover:bg-blue-500 hover:text-white border-blue-500 rounded-[15px] text-blue-500 font-[700] border-2 w-[90px] h-[35px] flex items-center justify-center"
+                >Progress</span
+              >
+            </label>
+
+            <label class="cursor-pointer flex" for="addDone">
+              <input
+                class="peer peer/addDone hidden"
+                type="radio"
+                id="addDone"
+                name="status"
+                value="done"
+              />
+              <span
+                class="peer-checked/addDone:text-white peer-checked/addDone:bg-blue-500 hover:bg-blue-500 hover:text-white border-blue-500 rounded-[15px] text-blue-500 font-[700] border-2 w-[90px] h-[35px] flex items-center justify-center"
+                >Done</span
+              >
+            </label>
+          </div>
+        </div>
+        <div class="self-end">
+          <button
+            type="submit"
+            class="bg-purple-900 text-white font-[700] px-[60px] py-[10px] rounded-[10px]"
+          >
+            Add
+          </button>
+        </div>
+      </form>
+    </div>
+
+    <!-- DELETE TASK -->
+    <div id="delete" class="hidden">
+      <div
+        class="bg-white w-[600px] p-[30px] flex flex-col gap-[30px] rounded-[15px]"
+      >
+        <div class="flex flex-col justify-center items-center gap-[40px]">
+          <p class="text-[30px] font-[700] text-red-500">Are you sure?</p>
+          <i
+            class="fas fa-exclamation-triangle text-[50px] font-[700] text-red-500"
+          ></i>
+          <div class="flex gap-[20px]">
+            <button
+              id="yes-button"
+              class="bg-red-500 text-white font-[700] px-[30px] py-[10px] rounded-[10px]"
+            >
+              Yes
+            </button>
+            <button
+              id="no-button"
+              class="bg-blue-500 text-white font-[700] px-[30px] py-[10px] rounded-[10px]"
+            >
+              No
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- UPDATE TASK -->
+    <div id="update-form" class="hidden">
+      <form
+        action="#"
+        class="bg-white w-[600px] p-[30px] flex flex-col gap-[30px] rounded-[15px]"
+        id="update-task-form"
+      >
+        <div class="flex justify-between items-center">
+          <p class="text-[30px] font-[700]">Update Task</p>
+        </div>
+        <div>
+          <div>
+            <label class="font-[600] text-[20px]" for="task">Task</label>
+          </div>
+          <input
+            class="w-[70%] border-blue-500 border-2 rounded-[10px] px-[10px] py-[5px]"
+            type="text"
+            placeholder="Web Homework"
+            id="update-task"
+          />
+        </div>
+        <div>
+          <label class="font-[600] text-[20px]" for="updateHigh">Priority</label>
+          <div class="flex gap-[20px]">
+            <label class="cursor-pointer flex" for="updateHigh">
+              <input
+                class="peer peer/updateHigh hidden"
+                type="radio"
+                id="updateHigh"
+                name="update-priority"
+                value="high"
+              />
+              <span
+                class="peer-checked/updateHigh:text-white peer-checked/updateHigh:bg-red-500 hover:bg-red-500 hover:text-white border-red-500 rounded-[15px] text-red-500 font-[700] border-2 w-[90px] h-[35px] flex items-center justify-center"
+                >High</span
+              >
+            </label>
+
+            <label class="cursor-pointer flex" for="updateMedium">
+              <input
+                class="peer peer/updateMedium hidden"
+                type="radio"
+                id="updateMedium"
+                name="update-priority"
+                value="medium"
+              />
+              <span
+                class="peer-checked/updateMedium:text-white peer-checked/updateMedium:bg-yellow-500 hover:bg-yellow-500 hover:text-white border-yellow-500 rounded-[15px] text-yellow-500 font-[700] border-2 w-[90px] h-[35px] flex items-center justify-center"
+                >Medium</span
+              >
+            </label>
+
+            <label class="cursor-pointer flex" for="updateLow">
+              <input
+                class="peer peer/updateLow hidden"
+                type="radio"
+                id="updateLow"
+                name="update-priority"
+                value="low"
+              />
+              <span
+                class="peer-checked/updateLow:text-white peer-checked/updateLow:bg-green-500 hover:bg-green-500 hover:text-white border-green-500 rounded-[15px] text-green-500 font-[700] border-2 w-[90px] h-[35px] flex items-center justify-center"
+                >Low</span
+              >
+            </label>
+          </div>
+        </div>
+
+        <div>
+          <label class="font-[600] text-[20px]" for="priority">Status</label>
+          <div class="flex gap-[20px]">
+            <label class="cursor-pointer flex" for="updateTodo">
+              <input
+                class="peer peer/updateTodo hidden"
+                type="radio"
+                id="updateTodo"
+                name="update-status"
+                value="todo"
+              />
+              <span
+                class="peer-checked/updateTodo:text-white peer-checked/updateTodo:bg-blue-500 hover:bg-blue-500 hover:text-white border-blue-500 rounded-[15px] text-blue-500 font-[700] border-2 w-[90px] h-[35px] flex items-center justify-center"
+                >To Do</span
+              >
+            </label>
+
+            <label class="cursor-pointer flex" for="updateProgress">
+              <input
+                class="peer peer/updateProgress hidden"
+                type="radio"
+                id="updateProgress"
+                name="update-status"
+                value="progress"
+              />
+              <span
+                class="peer-checked/updateProgress:text-white peer-checked/updateProgress:bg-blue-500 hover:bg-blue-500 hover:text-white border-blue-500 rounded-[15px] text-blue-500 font-[700] border-2 w-[90px] h-[35px] flex items-center justify-center"
+                >Progress</span
+              >
+            </label>
+
+            <label class="cursor-pointer flex" for="updateDone">
+              <input
+                class="peer peer/updateDone hidden"
+                type="radio"
+                id="updateDone"
+                name="update-status"
+                value="done"
+              />
+              <span
+                class="peer-checked/updateDone:text-white peer-checked/updateDone:bg-blue-500 hover:bg-blue-500 hover:text-white border-blue-500 rounded-[15px] text-blue-500 font-[700] border-2 w-[90px] h-[35px] flex items-center justify-center"
+                >Done</span
+              >
+            </label>
+          </div>
+        </div>
+        <div class="self-end">
+          <button
+            id="update-task-cancel"
+            type="button"
+            class="bg-red-500 text-white font-[700] px-[60px] py-[10px] rounded-[10px]"
+          >
+            Cancel
+          </button>
+          <button
+            type="submit"
+            class="bg-purple-900 text-white font-[700] px-[60px] py-[10px] rounded-[10px]"
+          >
+            Update
+          </button>
+        </div>
+      </form>
+    </div>
+    <script type="module" src="script.js"></script>
+  </body>
+</html>
