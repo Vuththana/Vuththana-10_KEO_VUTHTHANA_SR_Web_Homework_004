@@ -3,6 +3,6 @@
     "tailwindcss": "^3.4.19"
   },
   "scripts": {
-    "dev" : "npx tailwindcss -i ./src/input.css -o ./src/output.css --watch"
+    "dev": "node api.js && npx tailwindcss -i ./src/input.css -o ./src/output.css --watch"
   }
 }
